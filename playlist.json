@@ -10,6 +10,4 @@
     "converse": { "bannerText": "Welcome to Alien Smoke & Vape — Converse" },
     "citybase": { "bannerText": "Welcome to Alien Smoke & Vape — City Base" }
   }
-}"global": [
-  { "type": "image", "src": "assets/global/test.jpg", "duration": 10 }
-]
+}
