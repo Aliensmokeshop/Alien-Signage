@@ -10,3 +10,7 @@
     "citybase": { "bannerText": "Welcome to Alien Smoke & Vape — City Base" }
   }
 }
+"global": [
+  { "type": "video", "src": "assets/global/puffco_peak.mp4" },
+  { "type": "image", "src": "assets/global/test.jpg", "duration": 10 }
+]
