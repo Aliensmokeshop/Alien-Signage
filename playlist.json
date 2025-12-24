@@ -1,12 +1,13 @@
 {
   "refreshSeconds": 180,
   "global": [
-    { "type": "image", "src": "assets/global/test.jpg", "duration": 10 }
+    { "type": "image", "src": "assets/global/test.jpg", "duration": 10 },
+    { "type": "video", "src": "assets/global/puffco_peak.mp4" }
   ],
   "stores": {
-    "alien-utsa": { "bannerText": "Welcome to Alien Smoke & Vape — UTSA" },
-    "alien-naco": { "bannerText": "Welcome to Alien Smoke & Vape — Naco" },
-    "alien-converse": { "bannerText": "Welcome to Alien Smoke & Vape — Converse" },
-    "alien-citybase": { "bannerText": "Welcome to Alien Smoke & Vape — City Base" }
+    "citybase":  { "bannerText": "Welcome to Alien Smoke & Vape — City Base" },
+    "converse":  { "bannerText": "Welcome to Alien Smoke & Vape — Converse" },
+    "naco":      { "bannerText": "Welcome to Alien Smoke & Vape — Naco" },
+    "utsa":      { "bannerText": "Welcome to Alien Smoke & Vape — UTSA" }
   }
 }
