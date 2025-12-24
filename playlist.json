@@ -1,7 +1,6 @@
 {
   "refreshSeconds": 180,
   "global": [
-    { "type": "video", "src": "assets/global/puffco_peak.mp4" },
     { "type": "image", "src": "assets/global/test.jpg", "duration": 10 }
   ],
   "stores": {
