@@ -39,12 +39,21 @@ function loop() {
 function showItem(item) {
   stageEl.innerHTML = "";
 
+  // If something fails, show an error briefly and move on
+  const skipSoon = (why) => {
+    stageEl.innerHTML = `<div style="color:#ff6b6b;font:600 22px system-ui;padding:24px">
+      Media error: ${why}<br><small>${item?.src || ""}</small>
+    </div>`;
+    setTimeout(loop, 1000);
+  };
+
   if (item.type === "image") {
     const img = document.createElement("img");
     img.src = `${item.src}?v=${Date.now()}`;
     img.style.width = "100%";
     img.style.height = "100%";
     img.style.objectFit = "cover";
+    img.onerror = () => skipSoon("image failed to load");
     stageEl.appendChild(img);
 
     setTimeout(loop, (item.duration || 10) * 1000);
@@ -55,23 +64,26 @@ function showItem(item) {
     const vid = document.createElement("video");
     vid.src = `${item.src}?v=${Date.now()}`;
     vid.autoplay = true;
-    vid.muted = true;       // required for autoplay
+    vid.muted = true;
     vid.playsInline = true;
     vid.preload = "auto";
     vid.style.width = "100%";
     vid.style.height = "100%";
     vid.style.objectFit = "cover";
 
+    vid.onerror = () => skipSoon("video failed to load");
+    vid.addEventListener("stalled", () => skipSoon("video stalled"), { once: true });
+
     stageEl.appendChild(vid);
 
-    // Force play (some browsers need it even with autoplay)
-    vid.play().catch(() => { /* ignore */ });
+    // Try to start playback; if blocked, skip
+    vid.play().catch(() => skipSoon("video autoplay blocked"));
 
     if (item.duration) setTimeout(loop, item.duration * 1000);
     else vid.addEventListener("ended", loop, { once: true });
 
-    // Safety fallback in case "ended" never fires
-    setTimeout(loop, 5 * 60 * 1000);
+    // Absolute fallback so it never sticks forever
+    setTimeout(loop, 60 * 1000);
     return;
   }
 
