@@ -5,9 +5,23 @@
     { "type": "image", "src": "assets/global/proxy_lifestyle.jpg", "duration": 10 }
   ],
   "stores": {
-    "utsa":     { "bannerText": "Welcome to Alien Smoke & Vape — UTSA" },
-    "naco":     { "bannerText": "Welcome to Alien Smoke & Vape — Naco" },
-    "converse": { "bannerText": "Welcome to Alien Smoke & Vape — Converse" },
-    "citybase": { "bannerText": "Welcome to Alien Smoke & Vape — City Base" }
+    "utsa": {
+      "bannerText": "Welcome to Alien Smoke & Vape — UTSA",
+      "playlist": []
+    },
+    "naco": {
+      "bannerText": "Welcome to Alien Smoke & Vape — Naco",
+      "playlist": [
+        { "type": "image", "src": "assets/naco/Naco_welcome.jpg", "duration": 8 }
+      ]
+    },
+    "converse": {
+      "bannerText": "Welcome to Alien Smoke & Vape — Converse",
+      "playlist": []
+    },
+    "citybase": {
+      "bannerText": "Welcome to Alien Smoke & Vape — City Base",
+      "playlist": []
+    }
   }
 }
