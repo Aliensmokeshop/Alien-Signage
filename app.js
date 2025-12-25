@@ -77,7 +77,7 @@ function showItem(item) {
     stageEl.appendChild(vid);
 
     // Try to start playback; if blocked, skip
-    vid.play().catch(() => skipSoon("video autoplay blocked"));
+    vid.play().catch((e) => skipSoon(`play() failed: ${e?.name || ""} ${e?.message || ""}`));
 
     if (item.duration) setTimeout(loop, item.duration * 1000);
     else vid.addEventListener("ended", loop, { once: true });
