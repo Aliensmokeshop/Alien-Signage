@@ -4,55 +4,90 @@ const store = (qs.get("store") || "naco").toLowerCase();
 const bannerEl = document.getElementById("banner");
 const stageEl  = document.getElementById("stage");
 
-let playlist = [];
+let globalList = [];
+let storeList  = [];
+let specials   = [];
+
 let idx = 0;
+let spIdx = 0;
+let normalSinceSpecial = 0;
+let specialEvery = 0;
 
 async function loadConfig() {
   const res = await fetch(`playlist.json?v=${Date.now()}`, { cache: "no-store" });
   if (!res.ok) throw new Error(`Failed to load playlist.json (${res.status})`);
 
   const cfg = await res.json();
-
   const s = cfg.stores?.[store];
+
   bannerEl.textContent = s?.bannerText || `Welcome to Alien Smoke & Vape — ${store}`;
 
-  playlist = Array.isArray(cfg.global) ? cfg.global : [];
+  globalList = Array.isArray(cfg.global) ? cfg.global : [];
+  storeList  = Array.isArray(s?.playlist) ? s.playlist : [];
+  specials   = Array.isArray(s?.specials) ? s.specials : [];
 
-  // periodic reload so every screen picks up updates fast
+  specialEvery = Number(s?.specialEvery || 0);
+
+  // optional: hide banner for 2x2 wall
+  if (store === "2x2") {
+    bannerEl.style.display = "none";
+    stageEl.style.height = "100vh";
+  }
+
   const refreshMs = (cfg.refreshSeconds || 180) * 1000;
   setTimeout(() => location.reload(), refreshMs);
 }
 
+function getNextItem() {
+  if (specialEvery > 0 && specials.length > 0 && normalSinceSpecial >= specialEvery) {
+    normalSinceSpecial = 0;
+    const item = specials[spIdx % specials.length];
+    spIdx++;
+    return item;
+  }
+
+  const combined = [...storeList, ...globalList];
+  if (!combined.length) return null;
+
+  const item = combined[idx % combined.length];
+  idx++;
+  normalSinceSpecial++;
+  return item;
+}
+
 function loop() {
-  if (!playlist.length) {
-    stageEl.innerHTML = `<div style="color:#fff;font-size:24px;font-family:Arial;padding:24px">
-      No playlist items found.
+  const item = getNextItem();
+
+  if (!item) {
+    stageEl.innerHTML = `<div style="color:#fff;font:600 22px system-ui;padding:24px">
+      No playlist items for store "<b>${store}</b>".
     </div>`;
     return;
   }
 
-  const item = playlist[idx % playlist.length];
-  idx++;
   showItem(item);
 }
 
 function showItem(item) {
   stageEl.innerHTML = "";
 
-  // If something fails, show an error briefly and move on
+  const full = (src) => `${src}?v=${Date.now()}`;
+  const fit = item.fit || "cover";
+
   const skipSoon = (why) => {
-    stageEl.innerHTML = `<div style="color:#ff6b6b;font:600 22px system-ui;padding:24px">
-      Media error: ${why}<br><small>${item?.src || ""}</small>
+    stageEl.innerHTML = `<div style="color:#ff6b6b;font:600 20px system-ui;padding:24px">
+      Media error: ${why}<br>
+      <small style="opacity:.85">${item?.src || ""}</small>
     </div>`;
-    setTimeout(loop, 1000);
+    setTimeout(loop, 1500);
   };
 
   if (item.type === "image") {
     const img = document.createElement("img");
-    img.src = `${item.src}?v=${Date.now()}`;
+    img.src = full(item.src);
     img.style.width = "100%";
     img.style.height = "100%";
-    img.style.objectFit = "cover";
+    img.style.objectFit = fit;
     img.onerror = () => skipSoon("image failed to load");
     stageEl.appendChild(img);
 
@@ -62,40 +97,50 @@ function showItem(item) {
 
   if (item.type === "video") {
     const vid = document.createElement("video");
-    vid.src = `${item.src}?v=${Date.now()}`;
+    vid.src = full(item.src);
     vid.autoplay = true;
-    vid.muted = true;
+    vid.muted = true;                 // required for autoplay
     vid.playsInline = true;
     vid.preload = "auto";
     vid.style.width = "100%";
     vid.style.height = "100%";
-    vid.style.objectFit = "cover";
+    vid.style.objectFit = fit;
+
+    // help some kiosk builds
+    vid.setAttribute("muted", "");
+    vid.setAttribute("playsinline", "");
 
     vid.onerror = () => skipSoon("video failed to load");
     vid.addEventListener("stalled", () => skipSoon("video stalled"), { once: true });
 
     stageEl.appendChild(vid);
 
-    // Try to start playback; if blocked, skip
-    vid.play().catch((e) => skipSoon(`play() failed: ${e?.name || ""} ${e?.message || ""}`));
+    // Only fail if it truly cannot play (this prints the REAL reason)
+    vid.play().catch((e) => skipSoon(`play() failed: ${e?.name || "unknown"} ${e?.message || ""}`));
 
-    if (item.duration) setTimeout(loop, item.duration * 1000);
-    else vid.addEventListener("ended", loop, { once: true });
+    // If duration is set, use it; otherwise play to end
+    if (item.duration) {
+      setTimeout(loop, item.duration * 1000);
+    } else {
+      vid.addEventListener("ended", loop, { once: true });
+    }
 
-    // Absolute fallback so it never sticks forever
-    setTimeout(loop, 60 * 1000);
+    // Safety fallback ONLY if the video never starts playing
+    let started = false;
+    vid.addEventListener("playing", () => { started = true; }, { once: true });
+    setTimeout(() => { if (!started) skipSoon("video never started"); }, 8000);
+
     return;
   }
 
-  // Unknown type -> skip
-  loop();
+  skipSoon("unknown media type");
 }
 
 // START
 loadConfig()
-  .then(loop)
+  .then(() => setTimeout(loop, 250))
   .catch((err) => {
-    stageEl.innerHTML = `<div style="color:#ff6b6b;font-size:18px;font-family:Arial;padding:24px">
+    stageEl.innerHTML = `<div style="color:#ff6b6b;font:600 18px system-ui;padding:24px">
       Error: ${err.message}
     </div>`;
     console.error(err);

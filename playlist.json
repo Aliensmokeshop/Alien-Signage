@@ -2,10 +2,11 @@
   "refreshSeconds": 180,
 
   "global": [
-  { "type": "image", "src": "assets/global/test.jpg", "duration": 10 },
-  { "type": "video", "src": "assets/global/promo.mp4" },
-  { "type": "image", "src": "assets/global/proxy_lifestyle.jpg", "duration": 10 }
-],
+    { "type": "image", "src": "assets/global/test.jpg", "duration": 10 },
+    { "type": "video", "src": "assets/global/promo.mp4", "fit": "contain" },
+    { "type": "image", "src": "assets/global/proxy_lifestyle.jpg", "duration": 10 }
+  ],
+
   "stores": {
     "naco": {
       "bannerText": "Welcome to Alien Smoke & Vape — Naco",
@@ -43,7 +44,8 @@
       "bannerText": "Alien Smoke & Vape — Nacogdoches",
       "specialEvery": 2,
       "playlist": [
-        { "type": "image", "src": "assets/stores/2x2/wall_welcome.jpg", "duration": 10 }
+        { "type": "video", "src": "assets/global/promo.mp4", "fit": "contain" },
+        { "type": "image", "src": "assets/stores/2x2/wall_welcome.jpg", "duration": 10, "fit": "contain" }
       ],
       "specials": [
         { "type": "image", "src": "assets/global/proxy_lifestyle.jpg", "duration": 8 }
