@@ -1,34 +1,52 @@
 {
   "refreshSeconds": 180,
+
   "global": [
-    { "type": "image", "src": "assets/global/proxy_lifestyle.jpg", "duration": 10 },
     { "type": "image", "src": "assets/global/test.jpg", "duration": 10 }
   ],
+
   "stores": {
     "naco": {
       "bannerText": "Welcome to Alien Smoke & Vape — Naco",
+      "specialEvery": 3,
       "playlist": [
         { "type": "image", "src": "assets/stores/naco/naco_welcome.png", "duration": 10 }
+      ],
+      "specials": [
+        { "type": "image", "src": "assets/global/proxy_lifestyle.jpg", "duration": 8 }
       ]
     },
+
     "converse": {
       "bannerText": "Welcome to Alien Smoke & Vape — Converse",
-      "playlist": []
+      "specialEvery": 3,
+      "playlist": [],
+      "specials": []
     },
+
     "utsa": {
       "bannerText": "Welcome to Alien Smoke & Vape — UTSA",
-      "playlist": []
+      "specialEvery": 3,
+      "playlist": [],
+      "specials": []
     },
+
     "citybase": {
       "bannerText": "Welcome to Alien Smoke & Vape — City Base",
-      "playlist": []
-    }
-    "2x2": {
-  "bannerText": "Alien Smoke & Vape — 2×2 Wall",
-  "playlist": [
-    { "type": "image", "src": "assets/stores/2x2/wall_welcome.jpg", "duration": 10 }
-  ]
-}
+      "specialEvery": 3,
+      "playlist": [],
+      "specials": []
+    },
 
+    "2x2": {
+      "bannerText": "Alien Smoke & Vape — Nacogdoches (2x2 Wall)",
+      "specialEvery": 2,
+      "playlist": [
+        { "type": "image", "src": "assets/stores/2x2/wall_welcome.jpg", "duration": 10 }
+      ],
+      "specials": [
+        { "type": "image", "src": "assets/global/proxy_lifestyle.jpg", "duration": 8 }
+      ]
+    }
   }
 }
