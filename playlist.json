@@ -18,7 +18,7 @@
     "converse": {
       "bannerText": "Welcome to Alien Smoke & Vape — Converse",
       "playlist": [
-        { "type": "image", "src": "assets/naco/Naco_welcome.jpg", "duration": 8 }
+        { "type": "image", "src": "assets/naco/naco_welcome.jpg", "duration": 8 }
       ]
     },
     "citybase": {
