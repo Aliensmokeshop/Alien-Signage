@@ -23,5 +23,12 @@
       "bannerText": "Welcome to Alien Smoke & Vape — City Base",
       "playlist": []
     }
+    "2x2": {
+  "bannerText": "Alien Smoke & Vape — 2×2 Wall",
+  "playlist": [
+    { "type": "image", "src": "assets/stores/2x2/wall_welcome.jpg", "duration": 10 }
+  ]
+}
+
   }
 }
