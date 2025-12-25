@@ -1,24 +1,23 @@
 {
   "refreshSeconds": 180,
   "global": [
-    { "type": "image", "src": "assets/global/test.jpg", "duration": 10 },
-    { "type": "image", "src": "assets/global/proxy_lifestyle.jpg", "duration": 10 }
+    { "type": "image", "src": "assets/global/proxy_lifestyle.jpg", "duration": 10 },
+    { "type": "image", "src": "assets/global/test.jpg", "duration": 10 }
   ],
   "stores": {
-    "utsa": {
-      "bannerText": "Welcome to Alien Smoke & Vape — UTSA",
-      "playlist": []
-    },
     "naco": {
       "bannerText": "Welcome to Alien Smoke & Vape — Naco",
-      "playlist": [{ "type": "image", "src": "assets/naco/naco_welcome.jpg", "duration": 8 }
+      "playlist": [
+        { "type": "image", "src": "assets/stores/naco/naco_welcome.png", "duration": 10 }
       ]
     },
     "converse": {
       "bannerText": "Welcome to Alien Smoke & Vape — Converse",
-      "playlist": [
-        { "type": "image", "src": "assets/naco/naco_welcome.jpg", "duration": 8 }
-      ]
+      "playlist": []
+    },
+    "utsa": {
+      "bannerText": "Welcome to Alien Smoke & Vape — UTSA",
+      "playlist": []
     },
     "citybase": {
       "bannerText": "Welcome to Alien Smoke & Vape — City Base",
