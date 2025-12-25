@@ -17,7 +17,9 @@
     },
     "converse": {
       "bannerText": "Welcome to Alien Smoke & Vape — Converse",
-      "playlist": []
+      "playlist": [
+        { "type": "image", "src": "assets/naco/Naco_welcome.jpg", "duration": 8 }
+      ]
     },
     "citybase": {
       "bannerText": "Welcome to Alien Smoke & Vape — City Base",
