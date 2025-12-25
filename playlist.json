@@ -11,8 +11,7 @@
     },
     "naco": {
       "bannerText": "Welcome to Alien Smoke & Vape — Naco",
-      "playlist": [
-        { "type": "image", "src": "assets/naco/Naco_welcome.jpg", "duration": 8 }
+      "playlist": [{ "type": "image", "src": "assets/naco/naco_welcome.jpg", "duration": 8 }
       ]
     },
     "converse": {
