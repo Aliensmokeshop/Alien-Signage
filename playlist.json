@@ -39,7 +39,7 @@
     },
 
     "2x2": {
-      "bannerText": "Alien Smoke & Vape — Nacogdoches (2x2 Wall)",
+      "bannerText": "Alien Smoke & Vape — Nacogdoches",
       "specialEvery": 2,
       "playlist": [
         { "type": "image", "src": "assets/stores/2x2/wall_welcome.jpg", "duration": 10 }
